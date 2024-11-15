@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ali
+      POSTGRES_PASSWORD: ali123
+      POSTGRES_DB: app2
+
+  web:
+    build: 
+      context: .  
+    environment:
+      - RAILS_ENV=development  
+      - DATABASE_PASSWORD=ali123 
+    volumes:
+      - ./log:/home/infiniti/depot/log
+    secrets:
+      - source: master_key
+        target: /home/infiniti/depot/config/master.key
+    ports:
+      - "8001:80"
+    depends_on:
+      - db
+
+secrets:
+  master_key:
+    file: ./config/master.key
+
+volumes:
+  pgdata:

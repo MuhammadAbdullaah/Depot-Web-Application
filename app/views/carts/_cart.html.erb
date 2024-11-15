@@ -1,0 +1,35 @@
+<% if cart && !cart.line_items.empty? %>
+  <div id="<%= dom_id(cart) %>" class="bg-white rounded p-2 shadow-md">
+    <h2 class="font-bold text-lg mb-3">Your Cart</h2>
+    <table class="table-auto w-full">
+      <thead>
+        <tr>
+          <th class="text-left">Product</th>
+          <th class="text-right">Quantity</th>
+          <th class="text-right">Price</th>
+          <th class="text-right"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render cart.line_items %> <!-- Rendering line_items partials for each item -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <th class="text-right pr-2 pt-2" colspan="3">Total:</th>
+          <td class="text-right pt-2 font-bold border-t-2 border-black">
+            <%= number_to_currency(cart.total_price) %>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="flex mt-4">
+      <%= button_to 'Empty Cart', cart, method: :delete, class: 'rounded-lg py-1 px-4 text-white bg-red-600', data: { turbo_confirm: 'Are you sure you want to empty your cart?' } %>
+      <%= button_to 'Checkout', new_order_path, method: :get, class: 'ml-4 rounded-lg py-1 px-4 text-black bg-green-200' %>
+    </div>
+  </div>
+<% else %>
+  <div id="cart" class="bg-white rounded p-2 shadow-md">
+    <h2 class="font-bold text-lg mb-3">Your Cart is Empty</h2>
+  </div>
+<% end %>

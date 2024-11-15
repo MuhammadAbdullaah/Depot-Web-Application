@@ -1,0 +1,25 @@
+<div class="max-w-md mx-auto mt-10 p-8 bg-white shadow-lg rounded-lg">
+  <% if notice.present? %>
+    <p class="py-2 px-4 bg-green-50 mb-6 text-green-600 font-semibold rounded-lg" id="notice">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <%= form_tag do %>
+    <h2 class="font-bold text-3xl text-center mb-6 text-gray-800">Please Log In</h2>
+
+    <div class="mb-6">
+      <%= label_tag :name, 'Name:', class: "block text-sm font-medium text-gray-700" %>
+      <%= text_field_tag :name, params[:name], class: "payment-field mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" %>
+    </div>
+
+    <div class="mb-6">
+      <%= label_tag :password, 'Password:', class: "block text-sm font-medium text-gray-700" %>
+      <%= password_field_tag :password, params[:password], class: "payment-field mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" %>
+    </div>
+
+    <div class="flex justify-center">
+      <%= submit_tag "Login", class: "rounded-lg py-3 px-6 bg-green-600 text-white font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

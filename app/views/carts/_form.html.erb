@@ -1,0 +1,41 @@
+<%= form_with(model: @cart, local: false, id: "cart-form") do |form| %>
+  <% if @cart.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(@cart.errors.count, "error") %> prohibited this cart from being saved:</h2>
+      <ul>
+        <% @cart.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @cart && @cart.line_items.any? %>
+    <div id="<%= dom_id @cart %>" class="bg-white rounded p-2">
+      <h2 class="font-bold text-lg mb-3">Your Cart</h2>
+      <table class="table-auto">
+        <%= render @cart.line_items %>
+        <tfoot>
+          <tr>
+            <th class="text-right pr-2 pt-2" colspan="3">Total:</th>
+            <td class="text-right pt-2 font-bold border-t-2 border-black">
+              <%= number_to_currency(@cart.total_price) %>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="flex mt-1">
+        <%= button_to 'Empty Cart', @cart, method: :delete, class: 'ml-4 rounded-lg py-1 px-2 text-white bg-green-600' %>
+        <%= button_to 'Checkout', new_order_path, method: :get, class: 'ml-4 rounded-lg py-1 px-2 text-black bg-green-200' %>
+      </div>
+    </div>
+  <% else %>
+    <div id="cart" class="bg-white rounded p-2">
+      <h2 class="font-bold text-lg mb-3">Your Cart is Empty</h2>
+    </div>
+  <% end %>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

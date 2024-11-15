@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: app2_db
+  username: ali
+  password: ali123
+  host: localhost
+
+test:
+  <<: *default
+  database: app2_test
+  username: ali
+  password: ali123
+  host: localhost
+
+production:
+  <<: *default
+  database: my_production_db
+  username: p_user
+  password: abc
+  host: localhost
+

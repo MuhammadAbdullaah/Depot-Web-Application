@@ -1,0 +1,38 @@
+<div class="w-full bg-gray-100 p-5"> <!-- Added background and padding -->
+  <div class="w-full">
+    <%= render 'notice' %> <!-- Existing notice render -->
+    <h1 class="font-bold text-xl mb-6 pb-2 border-b-2">
+      <%= t('.title_html') %> <!-- Existing title -->
+    </h1>
+  </div>
+
+  <h1 class="font-bold text-2xl mb-6 pb-2 border-b-2">Books Store</h1> <!-- New Books Store title -->
+
+  <%= turbo_stream_from 'products' %> <!-- Turbo stream for real-time updates -->
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> <!-- Grid layout for two items per row -->
+    <% cache @products do %>
+      <% @products.each do |product| %>
+        <% cache product do %>
+          <li class='p-4 bg-white border border-gray-300 rounded-lg shadow-md'>
+            <div class="flex items-start">
+              <%= image_tag(product.image_url, class: 'object-contain w-64 h-64 shadow mr-4') %> <!-- Product image -->
+              <div class="flex flex-col justify-center w-full">
+                <h2 class="font-bold text-lg mb-1 text-left"><%= product.title %></h2>
+                <hr class="mb-2"> <!-- Line under the title -->
+                <p class="text-sm text-gray-700 text-left mb-2"><%= sanitize(product.description) %></p> <!-- Description aligned left -->
+                <div class="text-lg font-semibold text-gray-900 text-left">
+                  <p class="font-bold text-green-600"><%= number_to_currency(product.price) %></p> <!-- Price -->
+                </div>
+
+                <!-- Add to Cart Button -->
+                <%= button_to 'Add to Cart', line_items_path(product_id: product),
+                  form_class: 'inline', class: 'ml-4 rounded-lg py-1 px-2 text-white bg-green-600' %> <!-- Button to add the product to cart -->
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+# test/fixtures/line_items.yml
+
+one:
+  product: one         # Product fixture ka naam
+  cart: one            # Cart fixture ka naam
+  quantity: 1          # Quantity field add karein
+  price: 19.99         # Price ko static value ke sath define karein
+
+two:
+  product: two         # Product fixture ka naam
+  cart: two            # Cart fixture ka naam
+  quantity: 2          # Quantity field add karein
+  price: 29.99         # Price ko static value ke sath define karein
